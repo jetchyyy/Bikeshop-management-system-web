@@ -1,35 +1,51 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import SignIn from "./components/auth/login/signIn";
+import Dashboard from "./pages/Dashboard/dashboard";
+import Inventory from "./pages/Inventory/inventory";
+import SalesHistory from "./pages/Sales History/salesHistory";
+import PurchaseHistory from "./pages/Purchase History/purchaseHistory";
+import Attendance from "./pages/Attendance/attendance";
+import Analytics from "./pages/Analytics/analytics";
+import NewCustomer from "./pages/New Customer/newCustomer";
+import { AuthProvider } from "./context/authContext";
+import { useRoutes } from "react-router-dom";
+import MainLayout from "./components/mainLayout/mainLayout";
+import ProtectedRoute from "./components/auth/login/protectedRoute";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const routesArray = [
+    {
+      path: "/signin",
+      element: <SignIn />,
+    },
+    {
+      path: "/",
+      element: (
+        <ProtectedRoute>
+          <MainLayout />
+        </ProtectedRoute>
+      ),
+      children: [
+        { path: "dashboard", element: <Dashboard /> },
+        { path: "inventory", element: <Inventory /> },
+        { path: "sales-history", element: <SalesHistory /> },
+        { path: "purchase-history", element: <PurchaseHistory /> },
+        { path: "attendance", element: <Attendance /> },
+        { path: "analytics", element: <Analytics /> },
+        { path: "new-customer", element: <NewCustomer /> },
+      ],
+    },
+    {
+      path: "*",
+      element: <SignIn />,
+    },
+  ];
 
+  let routesElement = useRoutes(routesArray);
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <AuthProvider>
+      <div>{routesElement}</div>
+    </AuthProvider>
+  );
 }
 
-export default App
+export default App;
