@@ -12,8 +12,12 @@
   "dependencies": {
     "@heroicons/react": "^2.2.0",
     "firebase": "^11.0.2",
+    "qrcode": "^1.5.4",
     "react": "^18.3.1",
+    "react-datepicker": "^7.5.0",
     "react-dom": "^18.3.1",
+    "react-qr": "^0.0.2",
+    "react-qr-code": "^2.0.15",
     "react-router-dom": "^7.0.1"
   },
   "devDependencies": {

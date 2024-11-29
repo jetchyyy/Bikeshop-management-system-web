@@ -1,9 +1,5 @@
-const PurchaseHistory = () => {
-    return (
-      <div className="w-full">
-        PurchaseHistory
-      </div>
-    )
-  }
-  
-  export default PurchaseHistory;
+function PurchaseHistory() {
+  return <div>PurchaseHistory</div>;
+}
+
+export default PurchaseHistory;
