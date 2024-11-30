@@ -45,7 +45,6 @@ const EditRoleModal = ({ showModal, setShowModal, role, onEditRole }) => {
     accessAttendance: "Access Attendance",
     accessAnalytics: "Access Analytics",
     accessNewCustomer: "Access New Customer",
-    accessSettings: "Access Settings",
   };
 
   if (!showModal) return null;
@@ -69,14 +68,15 @@ const EditRoleModal = ({ showModal, setShowModal, role, onEditRole }) => {
             value={roleName}
             onChange={(e) => setRoleName(e.target.value)}
             className="border border-gray-300 rounded-md px-4 py-2 w-full mt-2"
-            disabled={role.id === 'admin'}
+            disabled={role.id === 'admin' || role.id === 'super admin'}
           />
         </div>
 
         {/* Permissions Card */}
         <div className="mb-6 p-4 bg-gray-100 rounded-lg shadow-md">
           <h3 className="text-lg font-semibold mb-4">Access Permissions</h3>
-          {Object.keys(permissions).map((key) => (
+          {Object.keys(permissions).map((key) => 
+          key !== 'accessSettings' && (
             <div key={key}>
               <label className="flex items-center mb-2">
                 <input
@@ -86,7 +86,7 @@ const EditRoleModal = ({ showModal, setShowModal, role, onEditRole }) => {
                     setPermissions((prev) => ({ ...prev, [key]: !prev[key] }))
                   }
                   className="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-                  disabled={role.id === 'admin'}
+                  disabled={role.id === 'admin' || role.id === 'super admin'}
                 />
                 <span className="ml-2 text-gray-700 capitalize">{permissionLabels[key]}</span>
               </label>

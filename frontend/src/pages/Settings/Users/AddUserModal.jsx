@@ -107,7 +107,7 @@ const AddUserModal = ({ showModal, setShowModal }) => {
 
           <div className="max-h-[500px] overflow-y-auto">
             <form onSubmit={handleCreateAccount}>
-              <div className="mb-6 p-4 bg-gray-100 rounded-lg shadow-md">
+              <div className="mb-6 p-4 bg-neutral-100 rounded-lg shadow-md">
                 <h3 className="text-lg font-semibold mb-4">User Information</h3>
                 <div className="mb-4">
                   <label className="block text-gray-700">First Name</label>
@@ -184,12 +184,7 @@ const AddUserModal = ({ showModal, setShowModal }) => {
                     </button>
                   </div>
                 </div>
-              </div>
 
-              {error && <div className="mb-4 text-red-500 text-sm">{error}</div>}
-
-              <div className="mb-6 p-4 bg-gray-100 rounded-lg shadow-md">
-                <h3 className="text-lg font-semibold mb-4">Role</h3>
                 <div className="mb-4">
                   <label className="block text-gray-700">Select Role</label>
                   <select
@@ -199,13 +194,16 @@ const AddUserModal = ({ showModal, setShowModal }) => {
                     required
                   >
                     <option value="" disabled>Select a role</option>
-                    {roles.map((role) => (
-                      <option key={role} value={role}>{role}</option>
+                    {roles.filter(role => role.toLowerCase() !== 'super admin')
+                    .map((role) => (
+                      <option key={role} value={role}>{role.split(' ') .map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}</option>
                     ))}
                   </select>
                 </div>
               </div>
 
+              {error && <div className="mb-4 text-red-500 text-sm">{error}</div>}
+              
               <div className="flex justify-center">
                 <button
                   type="submit"

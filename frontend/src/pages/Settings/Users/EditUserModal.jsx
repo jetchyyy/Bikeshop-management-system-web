@@ -80,7 +80,7 @@ const EditUserModal = ({ showModal, setShowModal, userId }) => {
 
           <div className="max-h-[500px] overflow-y-auto">
             <form onSubmit={handleUpdateAccount}>
-              <div className="mb-6 p-4 bg-gray-100 rounded-lg shadow-md">
+              <div className="mb-6 p-4 bg-neutral-100 rounded-lg shadow-md">
                 <h3 className="text-lg font-semibold mb-4">User Information</h3>
                 <div className="mb-4">
                   <label className="block text-gray-700">First Name</label>
@@ -116,10 +116,6 @@ const EditUserModal = ({ showModal, setShowModal, userId }) => {
                     disabled
                   />
                 </div>
-              </div>
-
-              <div className="mb-6 p-4 bg-gray-100 rounded-lg shadow-md">
-                <h3 className="text-lg font-semibold mb-4">Role</h3>
                 <div className="mb-4">
                   <label className="block text-gray-700">Select Role</label>
                   <select
@@ -129,8 +125,9 @@ const EditUserModal = ({ showModal, setShowModal, userId }) => {
                     required
                   >
                     <option value="" disabled>Select a role</option>
-                    {roles.map((role) => (
-                      <option key={role} value={role}>{role}</option>
+                    {roles.filter(role => role.toLowerCase() !== 'super admin')
+                    .map((role) => (
+                      <option key={role} value={role}>{role.split(' ') .map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}</option>
                     ))}
                   </select>
                 </div>

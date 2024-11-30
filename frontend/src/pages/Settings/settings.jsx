@@ -16,8 +16,8 @@ const Settings = () => {
           onClick={() => handleClick("User Management")}
           className={`space-x-4 px-6 py-2 rounded-md transition duration-200 ${
             tableView === "User Management"
-              ? "bg-slate-900 text-white text-bold"
-              : "bg-slate-200 text-gray-900"
+              ? "bg-neutral-900 text-white text-bold"
+              : "bg-neutral-200 text-neutral-900"
           }`}
         >
           User Management
@@ -26,8 +26,8 @@ const Settings = () => {
           onClick={() => handleClick("Role Management")}
           className={`space-x-4 px-6 py-2 rounded-md transition duration-200 ${
             tableView === "Role Management"
-              ? "bg-slate-900 text-white text-bold"
-              : "bg-slate-200 text-gray-900"
+              ? "bg-neutral-900 text-white text-bold"
+              : "bg-neutral-200 text-neutral-900"
           }`}
         >
           Role Management

@@ -23,6 +23,7 @@ const RolesTable = () => {
         snapshot.forEach((childSnapshot) => {
           rolesList.push({ id: childSnapshot.key, ...childSnapshot.val() });
         });
+        
         setRoles(rolesList);
         setFilteredRoles(rolesList); 
       }
@@ -114,7 +115,7 @@ const RolesTable = () => {
           placeholder="Search"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="border border-slate-300 px-4 py-2 rounded-lg"
+          className="border border-neutral-300 px-4 py-2 rounded-lg"
         />
         <button
           className="ml-4 bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-md"
@@ -124,8 +125,8 @@ const RolesTable = () => {
         </button>
       </div>
       <div className="relative overflow-x-auto rounded-md shadow-sm">
-        <table className="w-full text-md text-gray-900 text-center border border-slate-200">
-          <thead className="text-md bg-slate-200">
+        <table className="w-full text-md text-gray-900 text-center border border-neutral-200">
+          <thead className="text-md bg-neutral-200">
             <tr>
                 <th scope="col" className="px-6 py-3">Role</th>
                 <th scope="col" className="px-6 py-3">Access Inventory</th>
@@ -139,7 +140,7 @@ const RolesTable = () => {
           </thead>
           <tbody>
             {filteredRoles.map((role) => (
-              <tr key={role.id} className="bg-white border-b hover:bg-slate-100">
+              <tr key={role.id} className="bg-white border-b hover:bg-neutral-100">
                 <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                   {role.name}
                 </th>
@@ -176,6 +177,7 @@ const RolesTable = () => {
                 <td className="px-6 py-4 flex justify-center space-x-4">
                   <button
                     className="ml-4 bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-md"
+                    disabled={role.id === 'admin' || role.id === 'super admin'}
                     onClick={() => {
                       setSelectedRole(role);
                       setShowEditRoleModal(true);
@@ -185,7 +187,7 @@ const RolesTable = () => {
                   </button>
                   <button
                     className="ml-4 bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-md"
-                    disabled={role.id === 'admin'}
+                    disabled={role.id === 'admin' || role.id === 'super admin'}
                     onClick={() => confirmDeleteRole(role)}
                   >
                     Delete

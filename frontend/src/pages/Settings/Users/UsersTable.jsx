@@ -72,7 +72,7 @@ const UsersTable = () => {
           placeholder="Search"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="border border-slate-300 px-4 py-2 rounded-lg"
+          className="border border-neutral-300 px-4 py-2 rounded-lg"
         />
         <button
           className="ml-4 bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-md"
@@ -84,8 +84,8 @@ const UsersTable = () => {
 
       {/* Table */}
       <div className="relative overflow-x-auto rounded-md shadow-sm">
-        <table className="w-full text-md text-gray-900 text-center border border-slate-200">
-          <thead className="text-md bg-slate-200">
+        <table className="w-full text-md text-neutral-900 text-center border border-neutral-200">
+          <thead className="text-md bg-neutral-200">
             <tr>
               <th scope="col" className="px-6 py-3">Name</th>
               <th scope="col" className="px-6 py-3">Email</th>
@@ -95,20 +95,23 @@ const UsersTable = () => {
           </thead>
           <tbody>
             {filteredUsers.map((user) => (
-              <tr key={user.id} className="bg-white border-b hover:bg-slate-100">
+              <tr key={user.id} className="bg-white border-b hover:bg-neutral-100">
                 <td className="px-6 py-4">{`${user.firstName} ${user.lastName}`}</td>
                 <td className="px-6 py-4">{user.email}</td>
-                <td className="px-6 py-4">{user.role.charAt(0).toUpperCase() + user.role.slice(1)}</td>
+                <td className="px-6 py-4">
+                  {user.role.split(' ') .map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
+                </td>
                 <td className="px-6 py-4 flex justify-center space-x-4">
                   <button
                     className="ml-4 bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-md"
+                    disabled={user.role === 'super admin'}
                     onClick={() => handleEditClick(user)}
                   >
                     Edit
                   </button>
                   <button
                     className="ml-4 bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-md"
-                    disabled={user.role === 'admin'}
+                    disabled={user.role === 'admin' || user.role === 'super admin'}
                     onClick={() => confirmDeleteUser(user)}
                   >
                     Delete
