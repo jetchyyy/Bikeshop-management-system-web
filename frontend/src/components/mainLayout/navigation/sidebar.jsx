@@ -7,6 +7,7 @@ import {
   Bars3Icon,
   ChartBarIcon,
   ChartPieIcon,
+  Cog8ToothIcon,
   HomeIcon,
   PowerIcon,
   ShoppingBagIcon,
@@ -46,6 +47,7 @@ const Sidebar = () => {
     "/attendance": "Attendance",
     "/analytics": "Analytics",
     "/new-customer": "New Customer",
+    "/settings": "Admin Settings",
   };
 
   let currentTitle = "Overview";
@@ -164,6 +166,18 @@ const Sidebar = () => {
           >
             <UserPlusIcon className="w-6 h-6 mr-3" />
             New Customer
+          </Link>
+
+          <Link
+            to="/settings"
+            className={`flex items-center px-4 py-2 mt-2 mx-3 rounded-md ${
+              isActive("/settings")
+                ? "bg-neutral-800 text-neutral-100 shadow-sm"
+                : "text-neutral-900 hover:text-neutral-100"
+            } hover:bg-neutral-800`}
+          >
+            <Cog8ToothIcon className="w-6 h-6 mr-3" />
+            Settings
           </Link>
 
           <a
