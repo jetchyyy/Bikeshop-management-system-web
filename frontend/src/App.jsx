@@ -10,6 +10,7 @@ import { AuthProvider } from "./context/authContext";
 import { useRoutes } from "react-router-dom";
 import MainLayout from "./components/mainLayout/mainLayout";
 import ProtectedRoute from "./components/auth/login/protectedRoute";
+import Settings from "./pages/Settings/settings";
 
 function App() {
   const routesArray = [
@@ -32,6 +33,7 @@ function App() {
         { path: "attendance", element: <Attendance /> },
         { path: "analytics", element: <Analytics /> },
         { path: "new-customer", element: <NewCustomer /> },
+        { path: "settings", element: <Settings /> },
       ],
     },
     {
