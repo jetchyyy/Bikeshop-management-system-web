@@ -37,21 +37,23 @@ function AddCategory({ isOpen, toggleCategoryModal }) {
   if (!isOpen) return null;
 
   return (
-    <div>
-      <input
-        type="text"
-        placeholder="Enter new category"
-        value={category}
-        onChange={(e) => setCategory(e.target.value)}
-        className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring border-gray-300"
-        disabled={loading}
-      />
-      <button onClick={addCategory} disabled={loading || !category.trim()}>
-        {loading ? "Adding..." : "Add Category"}
-      </button>
-      <button onClick={toggleCategoryModal} disabled={loading}>
-        Close
-      </button>
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+      <div className="bg-white rounded-lg shadow-lg w-full max-w-4xl p-6 relative max-h-[90vh] overflow-y-auto">
+        <input
+          type="text"
+          placeholder="Enter new category"
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+          className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring border-gray-300"
+          disabled={loading}
+        />
+        <button onClick={addCategory} disabled={loading || !category.trim()}>
+          {loading ? "Adding..." : "Add Category"}
+        </button>
+        <button onClick={toggleCategoryModal} disabled={loading}>
+          Close
+        </button>
+      </div>
     </div>
   );
 }
