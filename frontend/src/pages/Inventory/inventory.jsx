@@ -104,53 +104,58 @@ function Inventory() {
           toggleCategoryModal={toggleCategoryModal}
         />
       )}
-      <table>
-        <thead>
-          <tr>
-            <th>Item Name</th>
-            <th>QR Code</th>
-            <th>Category</th>
-            <th>Price</th>
-            <th>Stock Quantity</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredInventoryList.length > 0 ? (
-            filteredInventoryList.map((item) => (
-              <tr key={item.id}>
-                <td>{item.itemName}</td>
-                <td>
-                  <QRCode size={50} value={item.id} />
-                </td>
-                <td>{item.category}</td>
-                <td>{item.price}</td>
-                <td>{item.stockQuantity}</td>
-                <td>
-                  <button
-                    onClick={() => handleEdit(item)}
-                    className="ml-4 bg-blue-600 hover:bg-blue-700 text-white px-4 py-1 rounded-md"
-                  >
-                    Edit
-                  </button>
-                  <button
-                    className="ml-4 bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-md"
-                    onClick={() => confirmDelete(item)}
-                  >
-                    DELETE
-                  </button>
+      <div className="relative overflow-x-auto rounded-md shadow-sm">
+        <table className="w-full text-md text-gray-900 text-center border border-slate-200">
+          <thead className="text-md bg-slate-200">
+            <tr>
+              <th className="px-6 py-3">Item Name</th>
+              <th className="px-6 py-3">QR Code</th>
+              <th className="px-6 py-3">Category</th>
+              <th className="px-6 py-3">Price</th>
+              <th className="px-6 py-3">Stock Quantity</th>
+              <th className="px-6 py-3">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {filteredInventoryList.length > 0 ? (
+              filteredInventoryList.map((item) => (
+                <tr
+                  key={item.id}
+                  className="bg-white border-b hover:bg-slate-100"
+                >
+                  <td className="px-6 py-3">{item.itemName}</td>
+                  <td className="px-6 py-3">
+                    <QRCode size={50} value={item.id} />
+                  </td>
+                  <td className="px-6 py-3">{item.category}</td>
+                  <td className="px-6 py-3">{item.price}</td>
+                  <td className="px-6 py-3">{item.stockQuantity}</td>
+                  <td className="px-6 py-3">
+                    <button
+                      onClick={() => handleEdit(item)}
+                      className="ml-4 bg-blue-600 hover:bg-blue-700 text-white px-4 py-1 rounded-md"
+                    >
+                      Edit
+                    </button>
+                    <button
+                      className="ml-4 bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-md"
+                      onClick={() => confirmDelete(item)}
+                    >
+                      DELETE
+                    </button>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="5" className="px-6 py-3">
+                  Inventory is Empty
                 </td>
               </tr>
-            ))
-          ) : (
-            <tr>
-              <td colSpan="5" className="px-6 py-3">
-                Inventory is Empty
-              </td>
-            </tr>
-          )}
-        </tbody>
-      </table>
+            )}
+          </tbody>
+        </table>
+      </div>
 
       {deleteModal && (
         <div className="fixed inset-0 z-50 flex justify-center items-center bg-black bg-opacity-50">

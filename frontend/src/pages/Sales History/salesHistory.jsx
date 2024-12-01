@@ -94,34 +94,39 @@ function SalesHistory() {
           className="border rounded-md px-4 py-2"
         />
       </div>
-      <table>
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Item Sold</th>
-            <th>Quantity</th>
-            <th>Total</th>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredSalesHistory.length > 0 ? (
-            filteredSalesHistory.map((item) => (
-              <tr key={item.id}>
-                <td>{item.date}</td>
-                <td>{item.itemName}</td>
-                <td>{item.quantity}</td>
-                <td>{item.total}</td>
-              </tr>
-            ))
-          ) : (
+      <div className="relative overflow-x-auto rounded-md shadow-sm">
+        <table className="w-full text-md text-gray-900 text-center border border-slate-200">
+          <thead className="text-md bg-slate-200">
             <tr>
-              <td td colSpan="5" className="px-6 py-3">
-                No Sales History yet.
-              </td>
+              <th className="px-6 py-3">Date</th>
+              <th className="px-6 py-3">Item Sold</th>
+              <th className="px-6 py-3">Quantity</th>
+              <th className="px-6 py-3">Total</th>
             </tr>
-          )}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {filteredSalesHistory.length > 0 ? (
+              filteredSalesHistory.map((item) => (
+                <tr
+                  key={item.id}
+                  className="bg-white border-b hover:bg-slate-100"
+                >
+                  <td className="px-6 py-3">{item.date}</td>
+                  <td className="px-6 py-3">{item.itemName}</td>
+                  <td className="px-6 py-3">{item.quantity}</td>
+                  <td className="px-6 py-3">{item.total}</td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td td colSpan="4" className="px-6 py-3">
+                  No Sales History yet.
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }
