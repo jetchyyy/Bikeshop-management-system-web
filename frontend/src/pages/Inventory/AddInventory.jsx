@@ -16,22 +16,26 @@ function generateRandomKey(length) {
 function AddInventory({ isOpen, toggleModal }) {
   const [itemName, setItemName] = useState("");
   const [category, setCategory] = useState("");
+  const [supplier, setSupplier] = useState("");
+  const [supplierList, setSupplierList] = useState([]);
   const [categoryList, setCategoryList] = useState([]);
   const [price, setPrice] = useState("");
   const [stockQuantity, setStockQuantity] = useState("");
   const [loading, setLoading] = useState(false);
   const [itemNameError, setItemNameError] = useState(false);
   const [categoryError, setCategoryError] = useState(false);
+  const [supplierError, setSupplierError] = useState(false);
   const [priceError, setPriceError] = useState(false);
   const [stockQuantityError, setStockQuantityError] = useState(false);
 
   const handleSubmit = async () => {
     setItemNameError(!itemName);
     setCategoryError(!category);
+    setSupplierError(!supplier);
     setPriceError(!price);
     setStockQuantityError(!stockQuantity);
 
-    if (!itemName || !category || !price || !stockQuantity) {
+    if (!itemName || !category || !supplier || !price || !stockQuantity) {
       return;
     }
 
@@ -48,6 +52,7 @@ function AddInventory({ isOpen, toggleModal }) {
         itemName,
         price,
         category,
+        supplier,
         stockQuantity,
         qrCode: qrCodeDataUrl,
       };
@@ -56,6 +61,7 @@ function AddInventory({ isOpen, toggleModal }) {
       alert("Inventory has been added successfully!");
       setItemName("");
       setCategory("");
+      setSupplier("");
       setPrice("");
       setStockQuantity("");
       toggleModal();
@@ -85,6 +91,25 @@ function AddInventory({ isOpen, toggleModal }) {
     return () => unsubscribe();
   }, []);
 
+  //fetch the data of supplier for dropdown
+  useEffect(() => {
+    const supplierRef = ref(database, "supplier");
+
+    const unsubscribe = onValue(supplierRef, (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        const formattedData = Object.keys(data).map((key) => ({
+          id: key,
+          ...data[key],
+        }));
+        setSupplierList(formattedData);
+      } else {
+        setSupplierList([]);
+      }
+    });
+    return () => unsubscribe();
+  }, []);
+
   if (!isOpen) return null;
 
   return (
@@ -106,6 +131,30 @@ function AddInventory({ isOpen, toggleModal }) {
           />
           {itemNameError && <p className="text-red-500 mt-1">Required</p>}
         </div>
+
+        <div>
+          <label htmlFor="supplier">Supplier Name</label>
+          <select
+            id="supplier"
+            className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring ${
+              supplierError ? "border-red-500" : "border-gray-300"
+            }`}
+            value={supplier}
+            onChange={(e) => setSupplier(e.target.value)}
+            disabled={loading}
+          >
+            <option value="" disabled>
+              Select Supplier
+            </option>
+            {supplierList.map((item) => (
+              <option key={item.id} value={item.supplier}>
+                {item.supplier}
+              </option>
+            ))}
+          </select>
+          {supplierError && <p className="text-red-500 mt-1">Required</p>}
+        </div>
+
 
         <div>
           <label htmlFor="category">Category</label>

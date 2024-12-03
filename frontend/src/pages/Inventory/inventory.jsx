@@ -5,6 +5,7 @@ import QRCode from "react-qr-code";
 import AddInventory from "./AddInventory";
 import EditInventoryModal from "./EditInventoryModal";
 import AddCategory from "./AddCategory";
+import AddSupplier from "./AddSupplier";
 
 function Inventory() {
   const [inventoryList, setInventoryList] = useState([]);
@@ -14,6 +15,7 @@ function Inventory() {
   const [deleteModal, setDeleteModal] = useState(false);
   const [editModal, setEditModal] = useState(false);
   const [categoryModal, setCategoryModal] = useState(false);
+  const [supplierModal, setSupplierModal] = useState(false);
 
   const toggleModal = () => {
     setModal(!modal);
@@ -31,6 +33,9 @@ function Inventory() {
     setCategoryModal(!categoryModal);
   };
 
+  const toggleSupplierModal = () => {
+    setSupplierModal(!supplierModal);
+  }
   const handleEdit = (item) => {
     setCurrentItem(item);
     toggleEditModal();
@@ -97,6 +102,11 @@ function Inventory() {
 
       <button onClick={toggleModal}>Add Inventory</button>
       {modal && <AddInventory isOpen={modal} toggleModal={toggleModal} />}
+
+      <button onClick={toggleSupplierModal}>Add Supplier</button>
+      {supplierModal && (
+        <AddSupplier isOpen={supplierModal} toggleCategoryModal={toggleSupplierModal}/>
+      )}
       <button onClick={toggleCategoryModal}> Add Category</button>
       {categoryModal && (
         <AddCategory
@@ -109,6 +119,7 @@ function Inventory() {
           <thead className="text-md bg-slate-200">
             <tr>
               <th className="px-6 py-3">Item Name</th>
+              <th className="px-6 py-3">Supplier Name</th>
               <th className="px-6 py-3">QR Code</th>
               <th className="px-6 py-3">Category</th>
               <th className="px-6 py-3">Price</th>
@@ -124,6 +135,7 @@ function Inventory() {
                   className="bg-white border-b hover:bg-slate-100"
                 >
                   <td className="px-6 py-3">{item.itemName}</td>
+                  <td className="px-6 py-3">{item.supplier}</td>
                   <td className="px-6 py-3">
                     <QRCode size={50} value={item.id} />
                   </td>
