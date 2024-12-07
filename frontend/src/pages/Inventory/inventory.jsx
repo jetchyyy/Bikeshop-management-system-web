@@ -89,34 +89,39 @@ function Inventory() {
   );
 
   return (
-    <div>
-      <div className="my-4">
+    <div className="w-full">
+      <div className="mb-4 flex justify-between items-center">
         <input
           type="text"
           placeholder="Search by item name..."
-          className="border border-slate-300 px-4 py-2 rounded-md"
+          className="border border-neutral-300 px-4 py-2 rounded-lg"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
+        <div className="flex space-x-2">
+          <button className="ml-4 bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-md"
+          onClick={toggleModal}>Add Inventory</button>
+          {modal && <AddInventory isOpen={modal} toggleModal={toggleModal} />}
+
+          <button className="ml-4 bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-md"
+          onClick={toggleSupplierModal}>Add Supplier</button>
+          {supplierModal && (
+            <AddSupplier isOpen={supplierModal} toggleCategoryModal={toggleSupplierModal}/>
+          )}
+          <button className="ml-4 bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-md"
+          onClick={toggleCategoryModal}> Add Category</button>
+          {categoryModal && (
+            <AddCategory
+              isOpen={categoryModal}
+              toggleCategoryModal={toggleCategoryModal}
+            />
+          )}
+        </div>
       </div>
 
-      <button onClick={toggleModal}>Add Inventory</button>
-      {modal && <AddInventory isOpen={modal} toggleModal={toggleModal} />}
-
-      <button onClick={toggleSupplierModal}>Add Supplier</button>
-      {supplierModal && (
-        <AddSupplier isOpen={supplierModal} toggleCategoryModal={toggleSupplierModal}/>
-      )}
-      <button onClick={toggleCategoryModal}> Add Category</button>
-      {categoryModal && (
-        <AddCategory
-          isOpen={categoryModal}
-          toggleCategoryModal={toggleCategoryModal}
-        />
-      )}
       <div className="relative overflow-x-auto rounded-md shadow-sm">
-        <table className="w-full text-md text-gray-900 text-center border border-slate-200">
-          <thead className="text-md bg-slate-200">
+      <table className="w-full text-md text-neutral-900 text-center border border-neutral-200">
+        <thead className="text-md bg-neutral-200">
             <tr>
               <th className="px-6 py-3">Item Name</th>
               <th className="px-6 py-3">Supplier Name</th>
@@ -132,11 +137,11 @@ function Inventory() {
               filteredInventoryList.map((item) => (
                 <tr
                   key={item.id}
-                  className="bg-white border-b hover:bg-slate-100"
+                  className="bg-white border-b hover:bg-neutral-100"
                 >
                   <td className="px-6 py-3">{item.itemName}</td>
                   <td className="px-6 py-3">{item.supplier}</td>
-                  <td className="px-6 py-3">
+                  <td className="px-6 py-3 flex justify-center items-center">
                     <QRCode size={50} value={item.id} />
                   </td>
                   <td className="px-6 py-3">{item.category}</td>
@@ -145,7 +150,7 @@ function Inventory() {
                   <td className="px-6 py-3">
                     <button
                       onClick={() => handleEdit(item)}
-                      className="ml-4 bg-blue-600 hover:bg-blue-700 text-white px-4 py-1 rounded-md"
+                      className="ml-4 bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-md"
                     >
                       Edit
                     </button>
@@ -153,7 +158,7 @@ function Inventory() {
                       className="ml-4 bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-md"
                       onClick={() => confirmDelete(item)}
                     >
-                      DELETE
+                      Delete
                     </button>
                   </td>
                 </tr>
@@ -161,7 +166,7 @@ function Inventory() {
             ) : (
               <tr>
                 <td colSpan="5" className="px-6 py-3">
-                  Inventory is Empty
+                  No inventory items found.
                 </td>
               </tr>
             )}
@@ -185,7 +190,7 @@ function Inventory() {
                 onClick={handleDelete}
                 className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition duration-200"
               >
-                Yes, Delete
+                Delete
               </button>
             </div>
           </div>

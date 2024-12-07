@@ -2,7 +2,7 @@ import { useState } from "react";
 import { ref, push, set } from "firebase/database";
 import { database } from "../../firebase/firebase";
 
-function AddCategory({ isOpen, toggleSupplierModal }) {
+function AddSupplier({ isOpen, toggleSupplierModal }) {
   const [supplier, setSupplier] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -47,15 +47,19 @@ function AddCategory({ isOpen, toggleSupplierModal }) {
           className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring border-gray-300"
           disabled={loading}
         />
-        <button onClick={addSupplier} disabled={loading || !supplier.trim()}>
-          {loading ? "Adding..." : "Add Supplier"}
-        </button>
-        <button onClick={toggleSupplierModal} disabled={loading}>
-          Close
-        </button>
+        <div className="flex justify-start mt-4">
+          <button className="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 mr-2"
+          onClick={addSupplier} disabled={loading || !supplier.trim()}>
+            {loading ? "Adding..." : "Add Supplier"}
+          </button>
+          <button className="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600"
+          onClick={toggleSupplierModal} disabled={loading}>
+            Close
+          </button>
+        </div>
       </div>
     </div>
   );
 }
 
-export default AddCategory;
+export default AddSupplier;
