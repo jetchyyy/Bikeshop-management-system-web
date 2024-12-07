@@ -47,12 +47,16 @@ function AddCategory({ isOpen, toggleCategoryModal }) {
           className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring border-gray-300"
           disabled={loading}
         />
-        <button onClick={addCategory} disabled={loading || !category.trim()}>
-          {loading ? "Adding..." : "Add Category"}
-        </button>
-        <button onClick={toggleCategoryModal} disabled={loading}>
-          Close
-        </button>
+        <div className="flex justify-start mt-4">
+          <button className="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 mr-2" 
+          onClick={addCategory} disabled={loading || !category.trim()}>
+            {loading ? "Adding..." : "Add Category"}
+          </button>
+          <button className="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600"
+          onClick={toggleCategoryModal} disabled={loading}>
+            Close
+          </button>
+        </div>
       </div>
     </div>
   );
