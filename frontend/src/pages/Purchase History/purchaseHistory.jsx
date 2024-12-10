@@ -97,25 +97,26 @@ function PurchaseHistory() {
   });
 
   return (
-    <div>
-      <div className="flex items-center justify-between mb-4">
+    <div className="w-full">
+      <div className="mb-4 flex justify-between items-center">
         <DateRangePicker
           startDate={startDate}
           endDate={endDate}
           onStartDateChange={setStartDate}
           onEndDateChange={setEndDate}
+          className="border border-neutral-300 px-4 py-2 rounded-lg"
         />
         <input
           type="text"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           placeholder="Search by Item Name, First Name, or Last Name"
-          className="border rounded-md px-4 py-2"
+          className="border border-neutral-300 px-4 py-2 rounded-lg"
         />
       </div>
       <div className="relative overflow-x-auto rounded-md shadow-sm">
-        <table className="w-full text-md text-gray-900 text-center border border-slate-200">
-          <thead className="text-md bg-slate-200">
+        <table className="w-full text-md text-neutral-900 text-center border border-neutral-200">
+          <thead className="text-md bg-neutral-200">
             <tr>
               <th className="px-6 py-3">Customer Name</th>
               <th className="px-6 py-3">Item Purchased</th>
@@ -128,23 +129,23 @@ function PurchaseHistory() {
               filteredPurchaseHistory.map((item) => (
                 <tr
                   key={item.id}
-                  className="bg-white border-b hover:bg-slate-100"
+                  className="bg-white border-b hover:bg-neutral-100"
                 >
                   <td className="px-6 py-3">{item.customerName}</td>
                   <td className="px-6 py-3">{item.itemName}</td>
                   <td className="px-6 py-3">{item.date}</td>
                   <td className="px-6 py-3">
                     <button
-                      className="ml-4 bg-purple-600 hover:bg-purple-700 text-white px-4 py-1 rounded-md"
+                      className="ml-4 bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-md"
                       onClick={() => handleViewClick(purchase.id)}
                     >
-                      VIEW
+                      View
                     </button>
                     <button
                       className="ml-4 bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-md"
                       onClick={() => confirmDelete(item)}
                     >
-                      DELETE
+                      Delete
                     </button>
                   </td>
                 </tr>
@@ -176,7 +177,7 @@ function PurchaseHistory() {
                 onClick={handleDelete}
                 className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition duration-200"
               >
-                Yes, Delete
+                Delete
               </button>
             </div>
           </div>

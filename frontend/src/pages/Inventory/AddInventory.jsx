@@ -209,11 +209,13 @@ function AddInventory({ isOpen, toggleModal }) {
           {stockQuantityError && <p className="text-red-500 mt-1">Required</p>}
         </div>
 
-        <div>
-          <button onClick={handleSubmit} disabled={loading}>
+        <div className="flex justify-start mt-4">
+          <button className="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 mr-2" 
+          onClick={handleSubmit} disabled={loading}>
             {loading ? "Loading..." : "Submit"}
           </button>
-          <button onClick={toggleModal} disabled={loading}>
+          <button className="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600"
+          onClick={toggleModal} disabled={loading}>
             Close
           </button>
         </div>
